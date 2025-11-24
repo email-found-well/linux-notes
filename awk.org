@@ -1,0 +1,12 @@
+#+TITLE: AWK NOOOOOTTTESSS
+
+* AWK miscellany
++ ps aux | awk '$3 > 1.5 {print $2, $3, $11}'
+
+  Checks field 3 for CPU greater than 1.5, then prints columns 2, 3, and 11
+  containing those fields greater than 1.5
+
++ awk -F, '$3 - //pattern// { print $3,$4 }' <filename>
+
+  -F changes the field separator to a comma. Searches for a pattern in field 3
+  then prints fields three and four.
