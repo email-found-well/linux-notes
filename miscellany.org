@@ -1,0 +1,54 @@
+Linux Notes
+
+* AWK miscellany
++ ps aux | awk '$3 > 1.5 {print $2, $3, $11}'
+
+  Checks field 3 for CPU greater than 1.5, then prints columns 2, 3, and 11
+  containing those fields greater than 1.5
+
++ awk -F, '$3 - //pattern// { print $3,$4 }' <filename>
+
+  -F changes the field separator to a comma. Searches for a pattern in field 3
+  then prints fields three and four.
+* Redirection
+** &>
+
+Sends both stdout and stderr to a destination. Can be used to send both to
+/dev/null or to a file, if you really want to.
+
+** 2> /dev/null
+
+Use 2> /dev/null to send stderr to oblivion. Note, /dev/null is a special device
+on the system that automatically discards anything sent to it. Suppresses error
+messages.
+
+Note, the "2" in 2> /dev/null is the exit code for stderr
+
+** Double ||
+
+The double pipe serves as a logical 'or,' such that if the first command fails,
+the second command will execute.
+
+e.g. fd 'meaning-of-life.md' || echo "not found"
+* User management
+** Create and delete a users in linux
+
+1. sudo useradd -m -g <groupname> <username>
+   - the -m creates a home directory
+   - the -g adds user to a group
+2. sudo passwd <username>
+   - creates a new password for the user
+
+OPTIONAL
+
+To create a new group:
+  sudo groupadd <groupname>
+
+** To delete a user:
+
+1. switch to root in a new environment.
+   su -
+2. userdel -r <username>
+   - the -r removes the user's home directory and mail spool
+
+
