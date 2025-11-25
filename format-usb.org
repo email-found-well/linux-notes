@@ -1,0 +1,30 @@
+#+title: Format a USB
+
+Below are the steps to format a USB to ext4 file system
+
+1. Enter *lsblk* in the command in terminal and look for your device. The USB you
+   inserted in the machine will, usually, be the one listed as =/sdb/sdb1= or some
+   variation like =/sdc/sdc1= and, again, usually, not be mounted.
+
+   + NB: sd = SCSI disk. ../sdb1 = SCSI disk b (second device),
+     partition 1.
+
+   + NB: Some distros will automount the USB drive. So you will have to umount
+     it before proceeding. *sudo umount* =/device/path/=
+2. Next we will GNU Parted. Now that we know which device we will be using, and
+   it has been umounted:
+   + sudo parted =/dev/sdb=
+   + at the (parted) prompt, type *print* to see a list of partitions.
+   + In my case, I had two partitions and removed them with *rm 1* and *rm 2*
+3. We have a blank slate to work with. Let's create a partition with *mkpart*.
+4. - partition name []? *ok-computer*
+5. - filesystem type [ext2]? *ext4*
+6. - Start? *0%*
+7. - End? *100%*
+
+   - NB: Conveniently, parted allows the user to define the size of the voume in
+     percentages instead of kbytes, mbytes, etc. Although, if you want, you can
+     input those values, too.
+8. YOU DID IT. YOU PARTITIONED THE DRIVE. Type *quit*
+9. Ok, let's make the filesystem now.
+10. Enter: *sudo mkfs.ext4* =/dev/sdb=
